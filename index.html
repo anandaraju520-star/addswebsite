@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Blue collar</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="styles/style.css" type="text/css"/>
+    <!--
+    <link rel="stylesheet" href="source/bootstrap.min.css">
+    <script src="source/jquery.min.js"></script>
+    <script src="source/bootstrap.min.js"></script>
+    <script src="source/angular.min.js"></script>
+    -->
+
+    <!-- jQuery library -->
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="js/myscript.js"></script>
+    <script src="js/myangular.js"></script>
+
+<!--
+    <link href="http://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
+    <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+   -->
+
+</head>
+<body ng-controller="myController">
+<div class="container">
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="row off-set">
+                <div class="col-md-3 off-set">
+                    <div class="title"><span class="glyphicon glyphicon-menu-hamburger hash-color"></span>&nbsp;&nbsp;Bluecollar</div>
+                </div>
+                <div class="col-md-6 off-set">
+                    <ul>
+                        <li class="nav-btns">HOME</li>
+                        <li class="nav-btn">SEARCH JOB</li>
+                        <li class="nav-btn">FOR EMPLOYERS</li>
+                    </ul>
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-2">
+                    <ul>
+                        <li class="nav-btnb">SIGN OUT</li>
+                        <li class="nav-btnb">USER <span class="glyphicon glyphicon-triangle-bottom"></span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="row topspace">
+        <div class="col-md-10">
+            <ul class="breadcrumb">
+                <li><a href="#">Home <span class="glyphicon glyphicon-home"></span></a></li>
+                <li><a href="#">Search Job</a></li>
+            </ul>
+            <div class="row off-set">
+                <div class="col-md-3 off-set-filter">
+                    <div class="filter-block">
+                        <div class="filter-head">Filters</div>
+                        <div class="filterh">Jobs Posted Within</div>
+                        <div class="filtert">
+                            <div class="filter-item" ng-click="lastdays('7')">Last 7 Days</div>
+                            <div class="filter-item" ng-click="lastdays('15')">Last 15 Days</div>
+                            <div class="filter-item" ng-click="lastdays('30')">Last 30 Days</div>
+                            <div class="filter-item" ng-click="lastdays('60')">Last 60 Days</div>
+                            <div class="filter-item" ng-click="lastdays('90')">Last 90 Days</div>
+                        </div>
+                        <div class="filterh" ng-init="rangeInfo.min=0;rangeInfo.max=100000">Salary Range</div>
+                        <div class="filtert">
+                            <div class="filter-item" ng-click="rangeInfo.max=4999">Below Rs 4999</div>
+                            <div class="filter-item" ng-click="rangeInfo.min=5000;rangeInfo.max=7999">Rs 5000 &#x2013; 7999</div>
+                            <div class="filter-item" ng-click="rangeInfo.min=8000;rangeInfo.max=9999">Rs 8000 &#x2013; 9999</div>
+                            <div class="filter-item" ng-click="rangeInfo.min=10000;rangeInfo.max=14999">Rs 10000 &#x2013; 14999</div>
+                            <div class="filter-item" ng-click="rangeInfo.min=15000;rangeInfo.max=20000">Rs 15000 &#x2013; 20000</div>
+                            <div class="filter-item" ng-click="rangeInfo.min=20001;rangeInfo.max=100000">Above Rs 20000</div>
+                        </div>
+                        <div class="filterh">Experience</div>
+                        <div class="filtert">
+                            <div class="filter-item">No Experience / Fresher</div>
+                            <div class="filter-item">1 &#x2013; 2 Years</div>
+                            <div class="filter-item">3 &#x2013; 5 Years</div>
+                            <div class="filter-item">6 &#x2013; 8 Years</div>
+                            <div class="filter-item">9 &#x2013; 10 Years</div>
+                            <div class="filter-item">Above 10 Years</div>
+                        </div>
+                        <div class="filterh">Gender</div>
+                        <div class="filtert">
+                            <div class="filter-item" ng-click="gender('')">All</div>
+                            <div class="filter-item" ng-click="gender('boy')">Male</div>
+                            <div class="filter-item" ng-click="gender('girl')">Female</div>
+                        </div>
+
+                        <div class="filterh">Timings</div>
+                        <div class="filtert">
+                            <div class="filter-item">Part Time &#x2013; Morning</div>
+                            <div class="filter-item">Part Time &#x2013; Afternoon</div>
+                            <div class="filter-item">Part Time &#x2013; Evening</div>
+                            <div class="filter-item">Full Time &#x2013; Day Shift</div>
+                            <div class="filter-item">Full Time &#x2013; Night Shift</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-9 off-set">
+                    <div class="jobsearch-block">
+                        <div class="job-city">Search Jobs in {{searchLocation}}</div>
+                        <div class="col-md-6 off-set">
+                            <div class="dropdown">
+                                <button class="btn btn-default form-control dropdown-toggle" type="button" data-toggle="dropdown"><span ng-init="myjob='Select Job'">{{myjob}}</span>
+                                    <span class="caret"></span></button>
+                                <ul class="dropdown-menu">
+                                    <li ng-click="selectJob(job)" ng-repeat="job in jobs"><a href="#">{{job}}</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="dropdown">
+                                <button class="btn btn-default form-control dropdown-toggle" type="button" data-toggle="dropdown"><span ng-init="mylocation='Select Location'">{{mylocation}}</span>
+                                    <span class="caret"></span></button>
+                                <ul class="dropdown-menu">
+                                    <li ng-click="selectLocation(location)" ng-repeat="location in locations"><a href="#">{{location}}</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-12 off-set-filter">
+                            <div class="color-whight" ng-init="jobcount=jobsList.length">{{jobsList.length}} Matching Jobs found in {{searchLocation}}</div>
+                        </div>
+                    </div>
+                    <div class="row off-set">
+                        <div class="col-md-12 job-block off-set">
+                            <div class="jobs-block" ng-repeat="job in jobsList | rangeFilter:rangeInfo | filter : {jobLocation : searchLocation} | filter :{jobRole: searchJob} | filter : {gender : selectedGender}">
+                                <div class="job-title">{{job.jobTitle}}{{mysalary}}<div class="float-right"><button class="btn btn-primary">APPLY</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div></div>
+                                <div class="job-item">Job Location : {{job.jobLocation}}</div>
+                                <div class="job-item">Salary : Rs {{job.Salary}}/-</div>
+                                <div class="job-item">Required Experience : {{job.reqExperience}}</div>
+                                <div class="job-item">Job Role : {{job.jobRole}}</div>
+                                <div class="job-item">Job Type : {{job.jobType}}</div>
+                                <div class="hide-block">
+                                    <div class="col-md-3 off-set"><div class="job-item">Job Description : </div></div>
+                                    <div class="col-md-9 off-set">
+                                        <div class="">Role & Responsibilities </div>
+                                        <ul class="job-item" ng-repeat="role in job.jobDescription">
+                                            <li>&#x2013; {{role}}</li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-3 off-set"><div class="job-item">Contact Details : </div></div>
+                                    <div class="col-md-9 off-set">
+                                        <div class="">Address </div>
+                                        <div class="job-item-small">{{job.address}}</div>
+                                        <div class="">Contact Person</div>
+                                        <div class="job-item">Name : {{job.contactPerson}}<br/>Mobile : {{job.mobile}}<br/>Landline : 040-233462</div>
+                                    </div>
+                                </div>
+                                <div class="hide-show"><div class="see-more">See More <span class="glyphicon glyphicon-menu-down"></span></div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2 off-set">
+            <div class="job-block">
+                    <div class="filter-head">Related Jobs</div>
+                    <div class="btn btn-default form-control">Driver Jobs</div>
+                    <div class="btn btn-default form-control">House Keeping</div>
+                    <div class="btn btn-default form-control">Delivery Boy</div>
+                    <div class="btn btn-default form-control">Telecaller</div>
+                    <div class="btn btn-default form-control">Part Time</div>
+                    <div class="btn btn-default form-control">Pantry</div>
+                    <div class="btn btn-default form-control">Data Entry</div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
