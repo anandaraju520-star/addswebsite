@@ -504,14 +504,6 @@ h6,
 }
 
 @font-face{
-    font-family: "FineGothicMedium";
-    src: url("./../fonts/FineGothicMedium.ttf");
-    font-weight:normal;
-    font-style:normal;
-    font-display:swap;
-}
-
-@font-face{
     font-family: "Teko";
     src: url("./../fonts/Teko.ttf");
     font-weight:normal;
