@@ -1,14 +1,45 @@
 /********** Template CSS **********/
 :root {
-    --primary: #d9b128;
-    --secondary: #d0952e;
-    /* --primary: #7c3721;
-    --secondary: #360803; */
+    --primary: #7c3721;
+    --secondary: #360803;
     --light: #F0F6FF;
     --dark: #262B47;
 }
 
+body{
+    background: linear-gradient(to bottom right, var(--primary), var(--secondary));
+    background-position: left 0px top 0px, right 0px top 50%, center bottom;
+    background-repeat: no-repeat;
+    height: calc(100vh - 30px);
+    text-align: center;
+    color: #fff;
+}
 
+h1{
+    text-align: center;
+    color: #fff;
+}
+.question{
+    font-size: 16px;
+    padding-bottom: 12px;
+}
+.submit-button{
+    border: none;
+    padding: 5px;
+    border-radius: 5px;
+    margin-left: 100px;
+    color: var(--primary);
+    font-weight: bold;
+}
+label{
+    font-size: 15px;
+    line-height: 24px;
+}
+.container{
+    display: inline-block;
+    width: 400px;
+    text-align: left;
+}
 /*** Spinner ***/
 #spinner {
     opacity: 0;

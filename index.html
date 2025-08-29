@@ -36,45 +36,65 @@
 </head>
 
 <body data-bs-spy="scroll" data-bs-target=".navbar" data-bs-offset="51">
-    <h1>Adds website Header</h1>
-    <div>
-      <h3>Did you find this page helpful?</h3>
+    <h1>Sample Survey Website</h1>
+    <div class="container">
       <form id="feedbackForm">
+        <div class="question">1. Who plays the lead role in the movie <i>Kaithi</i> ?</div>
         <label>
-          <input type="radio" name="feedback" value="yes"> Yes
-        </label>
+          <input type="radio" name="role" value="Vijay"> Vijay
+        </label><br/>
         <label>
-          <input type="radio" name="feedback" value="no"> No
-        </label>
-        <button type="submit">Submit</button>
+          <input type="radio" name="role" value="Suriya"> Suriya
+        </label><br/>
+        <label>
+          <input type="radio" name="role" value="Karthi"> Karthi
+        </label><br/>
+        <label>
+          <input type="radio" name="role" value="Dhanush"> Dhanush
+        </label><br/>
+        <br/>
+        <div class="question">2. What is the name of the lead role character in <i>Kaithi</i> ?</div>
+        <label>
+          <input type="radio" name="charname" value="Anbu"> Anbu
+        </label><br/>
+        <label>
+          <input type="radio" name="charname" value="Dilli"> Dilli
+        </label><br/>
+        <label>
+          <input type="radio" name="charname" value="Arjun"> Arjun
+        </label><br/>
+        <label>
+          <input type="radio" name="charname" value="Ravi"> Ravi
+        </label><br/>
+        <br/>
+        <p id="responseMessage"></p>
+        <button class="submit-button" type="submit">Submit Feedback</button>
       </form>
-      <p id="responseMessage"></p>
     </div>
 
     <script>
       document.getElementById('feedbackForm').addEventListener('submit', function(event) {
         event.preventDefault();
-    
+        
         var formData = new FormData(event.target);
-        var feedback = formData.get('feedback');
+        var charname = formData.get('charname');
+        var role = formData.get('role');
     
-        if (feedback) {
-          document.getElementById('responseMessage').textContent = "Thank you for your feedback: " + feedback;
-    
-          // ✅ Send it to your backend or analytics platform here
-          // Example: log to console
-          console.log("User answered:", feedback);
-    
+        if (charname && role) {
+          document.getElementById('responseMessage').textContent = "Thank you for your feedback!";
           // Optional: Send to Google Analytics
           if(!isDevMode){
-            gtag('event', 'feedback_submission', {
+            gtag('event', 'movie_feedback', {
               'event_category': 'User Feedback',
-              'event_label': 'Was this page helpful?',
-              'value': feedback === 'yes' ? 1 : 0
+              'event_label': 'Who plays the lead role in the movie Kaithi ? & What is the name of the lead role character in Kaithi ?',
+              'value': role + ' & ' + charname
             });
           }
         } else {
-          document.getElementById('responseMessage').textContent = "Please select an option.";
+          document.getElementById('responseMessage').textContent = "Please select an option to submit the feedback!";
+          setTimeout(() => {
+            document.getElementById('responseMessage').textContent = '';
+          }, 5000);
         }
       });
     </script>
